@@ -3,6 +3,15 @@ const passport = require("passport");
 const httpErrorHelper = require("../custom-errors/http-error.helper");
 const router = require("express").Router();
 
+async function controllerRegisterRandomUser(req, res, next) {
+  try {
+    const RandomUser = await usersService.RandomUserAccess(req.body);
+    return res.status(201).json(RandomUser);
+  } catch (e) {
+    return httpErrorHelper(e, req, res, next);
+  }
+}
+
 async function controllerRegisterUser(req, res, next) {
   try {
     const newUser = await usersService.createOne(req.body);
@@ -12,7 +21,7 @@ async function controllerRegisterUser(req, res, next) {
   }
 }
 
-router.post("/register", controllerRegisterUser);
+router.post("/register", controllerRegisterUser,controllerRegisterRandomUser);
 
 async function generateJwt(req, res) {
   const jwt = await usersService.generateJwt(req.user);
@@ -27,10 +36,23 @@ router.post(
   generateJwt
 );
 
+async function controllerFindRandom(req, res) {
+  const user = await usersService.RandomUserAccess(req.user?._id);
+  return res.status(200).send(user);
+}
+
+router.get(
+  "/me",
+  passport.authenticate("jwt", { session: false }),
+  controllerFindRandom
+);
+
 async function controllerFindSelf(req, res) {
   const user = await usersService.findOne(req.user?._id);
   return res.status(200).send(user);
 }
+
+
 
 router.get(
   "/me",

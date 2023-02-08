@@ -28,6 +28,14 @@ async function findOne(id) {
 }
 
 // Only use this function for authentication purpose
+async function RandomUserAccess(username) {
+
+  const saneData = { username, password:"password" ,role: "user" };
+    const user = new User(saneData);
+
+  return user;
+}
+
 async function findOneForAuth(username) {
   const user = await User.findOne({ username }).select("+password");
   if (!user) {
@@ -60,6 +68,7 @@ module.exports = {
   createOne,
   findOne,
   findOneForAuth,
+  RandomUserAccess,
   updateOne,
   generateJwt,
   deleteOne,

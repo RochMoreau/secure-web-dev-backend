@@ -457,8 +457,8 @@
       "name": "LOCAL",
       "data": {
         "url": "http://localhost:3000",
-        "username": "Toto",
-        "password": "Toto",
+        "username": "franc",
+        "password": "franc",
         "locationId": "63c6da7e37c14b6154c881c2"
       },
       "dataPropertyOrder": {
