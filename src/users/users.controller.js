@@ -13,8 +13,6 @@ async function controllerRegisterUser(req, res, next) {
   }
 }
 
-router.post("/register", controllerRegisterUse);
-
 async function generateJwt(req, res) {
   const jwt = await usersService.generateJwt(req.user);
   return res.status(200).json({ jwt });
