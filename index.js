@@ -22,6 +22,7 @@ app.use((req, res, next) => {
 app.use(cors());
 
 app.use(bodyParser.json());
+app.use(cors("*"));
 
 // Protect all /locations route with JWT Authentication
 app.use(
