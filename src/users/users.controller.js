@@ -3,14 +3,6 @@ const passport = require("passport");
 const httpErrorHelper = require("../custom-errors/http-error.helper");
 const router = require("express").Router();
 
-async function controllerRegisterRandomUser(req, res, next) {
-  try {
-    const RandomUser = await usersService.RandomUserAccess(req.body);
-    return res.status(201).json(RandomUser);
-  } catch (e) {
-    return httpErrorHelper(e, req, res, next);
-  }
-}
 
 async function controllerRegisterUser(req, res, next) {
   try {
@@ -21,7 +13,7 @@ async function controllerRegisterUser(req, res, next) {
   }
 }
 
-router.post("/register", controllerRegisterUser,controllerRegisterRandomUser);
+router.post("/register", controllerRegisterUse);
 
 async function generateJwt(req, res) {
   const jwt = await usersService.generateJwt(req.user);
