@@ -27,7 +27,7 @@ async function findOne(id) {
   return user;
 }
 
-// Only use this function for authentication purpose
+
 async function findOneForAuth(username) {
   const user = await User.findOne({ username }).select("+password");
   if (!user) {

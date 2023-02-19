@@ -12,6 +12,15 @@ const cors = require("cors");
 const app = express();
 const port = 3000;
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  next();
+});
+app.use(cors());
+
 app.use(bodyParser.json());
 app.use(cors("*"));
 
@@ -24,6 +33,8 @@ app.use(
 app.use("/users", usersController);
 
 app.get("/", (req, res) => res.status(200).json({ message: "Hello World !" }));
+
+
 
 async function main() {
   await mongoose.connect(process.env.MONGO_URI);
